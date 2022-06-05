@@ -1,0 +1,30 @@
+#layout {
+    min-height: 100vh;
+}
+
+.logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+    background: #fff;
+    height: 60px;
+    line-height: 60px;
+}
+
+[data-theme="dark"] .site-layout .site-layout-background {
+    background: #141414;
+}
+
+.btn-setting {
+    font-size: 22px;
+    margin-right: 15px;
+    margin-left: 100px;
+    color: #000000
+}
+
+#footer {
+    text-align: center;
+}

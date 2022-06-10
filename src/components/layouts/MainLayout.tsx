@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from '../../pages/auth';
 import { useAuth } from '../../providers/AuthProvider';
 import '../../assets/style/MainLayout.css'
+import { useAuthorization, ROLES } from '../../lib/authorization';
 
 const { Footer, Sider } = Layout;
 
@@ -25,30 +26,38 @@ function getItem(
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-const items: MenuItem[] = [
-    getItem(<Link to="/dashboard">Dashboard</Link>,'1', <PieChartOutlined />),
-    getItem('Users', 'sub1', <UserOutlined />, [
-        getItem(<Link to="/dashboard/users">List</Link>, '2'),
-        getItem(<Link to="/users/create">Create</Link>, '3'),
-        getItem('Alex', '4'),
-    ]),
-    getItem('Product', 'sub2', <ShopOutlined />, [
-        getItem(<Link to="/products">List</Link>, '5'),
-        getItem(<Link to="/products/create">Create</Link>, '6')]
-    ),
-    getItem('Category', 'sub3', <MenuOutlined />, [
-        getItem(<Link to="/categories">List</Link>, '7'),
-        getItem(<Link to="/categories/create">Create</Link>, '8')]
-    ),
-];
-
 const Sidebar = () => {
+    const { checkAccess } = useAuthorization();
     const [collapsed, setCollapsed] = useState(false);
+    
+    const items = [
+        getItem(<Link to="/dashboard">Dashboard</Link>,'1', <PieChartOutlined />),
+        checkAccess({ allowedRoles: [ROLES.super_admin] }) &&
+        getItem('Users', 'sub1', <UserOutlined />, [
+            getItem(<Link to="/dashboard/users">List</Link>, '2'),
+            getItem(<Link to="/users/create">Create</Link>, '3'),
+            getItem('Alex', '4'),
+        ]),
+        getItem('Product', 'sub2', <ShopOutlined />, [
+            getItem(<Link to="/products">List</Link>, '5'),
+            getItem(<Link to="/products/create">Create</Link>, '6')]
+        ),
+        checkAccess({ allowedRoles: [ROLES.super_admin] }) &&
+        getItem('Category', 'sub3', <MenuOutlined />, [
+            getItem(<Link to="/dashboard/categories">List</Link>, '7'),
+            getItem(<Link to="/dashboard/categories/create">Create</Link>, '8')]
+        ),
+    ].filter(Boolean) as MenuItem[];
     
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
             <div className="logo" />
-            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+            <Menu
+                theme="dark"
+                defaultSelectedKeys={['1']}
+                mode="inline"
+                items={items}
+            />
         </Sider>
     );
 }

@@ -2,9 +2,10 @@ import React, { useContext, createContext, useState, useEffect, Suspense } from 
 import { ErrorBoundary } from 'react-error-boundary';
 import { loadUser } from '../lib/auth';
 import { Spin } from 'antd';
+import { Profile } from '../pages/auth/interfaces';
 
 interface IAuthContext  {
-    user: {} | null;
+    user: Profile | null;
     setUser: ({type}:any) => void;
 }
 
@@ -29,7 +30,7 @@ type AppProviderProps = {
 };
 
 const AuthProvider = ({children}: AppProviderProps) => {
-    const [user, setUser] = useState<{} | null>(null);
+    const [user, setUser] = useState<Profile | null>(null);
     const auth =  { user, setUser }
     
     useEffect( () => {

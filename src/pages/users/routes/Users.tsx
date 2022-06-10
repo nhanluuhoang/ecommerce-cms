@@ -4,7 +4,6 @@ import { List } from '../components/List';
 import { Search } from '../components/Search';
 
 export const Users = () => {
-    const [isLoading, setIsLoading] = useState(true)
     const [params, setParams] = useState({
         'filter[email]': null,
         'filter[full_name]': null,

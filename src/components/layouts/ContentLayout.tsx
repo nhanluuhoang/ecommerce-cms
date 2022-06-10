@@ -24,6 +24,7 @@ export const ContentLayout = ({ children, breadCrumb, isLoading = false }: Conte
             <div className="site-layout-background" style={{ padding: 24, minHeight: '150vh' }}>
                 <Spin
                     spinning={isLoading}
+                    style={{marginTop: '200px'}}
                     size="large"
                     tip="Loading..."
                 >

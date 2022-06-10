@@ -9,6 +9,7 @@ export interface Profile {
     full_name?: string,
     gender?: string,
     address?: object,
+    role: 'super_admin' | 'user';
     created_at?: string,
     updated_at?: string,
     deleted_at?: string

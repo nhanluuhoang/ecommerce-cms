@@ -6,6 +6,7 @@ import { NotFound } from '../pages/misc';
 
 const { Dashboard } = lazyImport(() => import('../pages/misc'), 'Dashboard');
 const { UserRoutes } = lazyImport(() => import('../pages/users'), 'UserRoutes');
+const { CategoryRoutes } = lazyImport(() => import('../pages/categories'), 'CategoryRoutes');
 
 const App = () => {
     return (
@@ -22,6 +23,7 @@ export const protectedRoutes = [
         children: [
             { path: '/dashboard', element: <Dashboard /> },
             { path: '/dashboard/users/*', element: <UserRoutes /> },
+            { path: '/dashboard/categories/*', element: <CategoryRoutes /> },
             { path: '*', element: <NotFound /> },
         ],
     },

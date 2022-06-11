@@ -14,6 +14,7 @@ export const CategoryRoutes = () => {
             <Routes>
                 <Route path='' element={<Categories />} />
                 <Route path=':categoryId' element={<Category />} />
+                <Route path='/create' element={<Category />} />
                 <Route path="*" element={<Navigate to="." />} />
             </Routes>
         </Authorization>

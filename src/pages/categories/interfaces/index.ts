@@ -1,4 +1,4 @@
-export interface UpdateDTO {
+export interface CategoryDTO {
     name: string;
     parent_id: number | undefined;
     sort_order: number;

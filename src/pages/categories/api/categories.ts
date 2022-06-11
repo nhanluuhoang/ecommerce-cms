@@ -1,15 +1,19 @@
 import { axios } from '../../../lib/axios'
-import { IGetCategories, IGetCategory, UpdateDTO } from '../interfaces';
+import { CategoryDTO, IGetCategories, IGetCategory } from '../interfaces';
 
 const getCategories = (): Promise<IGetCategories> => {
     return axios.get('/categories');
 };
 
-const getCategory = (id: string | undefined): Promise<IGetCategory> => {
+const getCategory = (id: any): Promise<IGetCategory> => {
     return axios.get(`/categories/${id}`);
 }
 
-const updateCategory = (id: any, body: UpdateDTO): Promise<IGetCategory> => {
+const createCategory = (body: CategoryDTO): Promise<IGetCategory> => {
+    return axios.post(`/categories`, body);
+}
+
+const updateCategory = (id: any, body: CategoryDTO): Promise<IGetCategory> => {
     return axios.put(`/categories/${id}`, body);
 }
 
@@ -17,4 +21,4 @@ const deleteCategory = (id: any):  Promise<IGetCategory> => {
     return axios.delete(`/categories/${id}`);
 }
 
-export { getCategories, getCategory, updateCategory, deleteCategory }
+export { getCategories, getCategory, updateCategory, deleteCategory, createCategory }

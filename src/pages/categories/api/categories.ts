@@ -13,11 +13,11 @@ const createCategory = (body: CategoryDTO): Promise<IGetCategory> => {
     return axios.post(`/categories`, body);
 }
 
-const updateCategory = (id: any, body: CategoryDTO): Promise<IGetCategory> => {
+const updateCategory = (id: any, body: CategoryDTO): Promise<any> => {
     return axios.put(`/categories/${id}`, body);
 }
 
-const deleteCategory = (id: any):  Promise<IGetCategory> => {
+const deleteCategory = (id: any):  Promise<any> => {
     return axios.delete(`/categories/${id}`);
 }
 

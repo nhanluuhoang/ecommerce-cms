@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { ContentLayout } from '../../../components/layouts/ContentLayout';
 import { getCategories } from '../api/categories';
 import { List } from '../components/List';
-import { ICategory } from '@/pages/categories/interfaces';
+import { ICategories } from '../interfaces';
 
 export const Categories = () => {
-    const [categories, setCategories] = useState<ICategory[]>([]);
+    const [categories, setCategories] = useState<ICategories[]>([]);
     
     useEffect(() => {
-        getCategories().then((resp) => {
-            setCategories(resp.data)
+        getCategories().then(({data, success, pagination}) => {
+            setCategories(data)
         })
     }, [])
     

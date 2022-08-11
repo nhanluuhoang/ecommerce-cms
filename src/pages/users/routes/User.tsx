@@ -76,6 +76,11 @@ const wardParams = {
     'filter[kind]': 2,
 }
 
+const layout = {
+    labelCol: 6,
+    inputCol: 12
+}
+
 export const User = () => {
     const { userId } = useParams();
     const [isLoading, setIsLoading] = useState(true)
@@ -160,8 +165,8 @@ export const User = () => {
                 <InputField
                     name='email'
                     label='Email'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('email')}
                     error={errors['email']}
@@ -169,8 +174,8 @@ export const User = () => {
                 <InputField
                     name='phone'
                     label='Phone'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('phone')}
                     error={errors['phone']}
@@ -178,8 +183,8 @@ export const User = () => {
                 <InputField
                     name='full_name'
                     label='Full Name'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('full_name')}
                     error={errors['full_name']}
@@ -194,8 +199,8 @@ export const User = () => {
     
                 <SelectField
                     label='Provinces'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('province_id')}
                     values={provinces}
@@ -203,8 +208,8 @@ export const User = () => {
     
                 <SelectField
                     label='Districts'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('district_id')}
                     values={districts}
@@ -212,8 +217,8 @@ export const User = () => {
     
                 <SelectField
                     label='Wards'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('ward_id')}
                     values={wards}
@@ -222,8 +227,8 @@ export const User = () => {
                 <InputField
                     name='address'
                     label='Address'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('address')}
                     error={errors['address']}

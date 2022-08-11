@@ -1,9 +1,9 @@
 import React from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-type FieldProps = {
+type TextAreaFieldProps = {
     name?: string;
-    type?: string;
+    rows?: number;
     label?: string;
     classRequired?: boolean;
     labelCol?: number;
@@ -11,23 +11,21 @@ type FieldProps = {
     registration?: Partial<UseFormRegisterReturn>;
     placeholder?: string;
     error?: FieldError | undefined;
-    isDisable?: boolean;
 };
 
-export const InputField = (props: FieldProps) => {
+export const TextAreaField = (props: TextAreaFieldProps) => {
     const {
         name,
-        type,
+        rows,
         label,
         classRequired,
         labelCol,
         inputCol,
         registration,
         placeholder,
-        error,
-        isDisable
+        error
     } = props;
-
+    
     return (
         <div className={`ant-row ant-form-item ${error?.message ? ' ant-input-item-with-help ant-form-item-has-error' : ''}`}>
             <div className={`ant-col ant-col-${labelCol || 8} ant-form-item-label`}>
@@ -38,19 +36,18 @@ export const InputField = (props: FieldProps) => {
             <div className={`ant-col ant-col-${inputCol || 16} ant-form-item-control`}>
                 <div className={`ant-form-item-control-input`}>
                     <div className={`ant-form-item-control-input-content`}>
-                        <input
-                            disabled={isDisable}
+                        <textarea
                             id={name}
-                            type={`${type ? type : 'text'}`}
-                            {...registration}
-                            placeholder={placeholder ?? ''}
                             className={`ant-input ${error?.message ? 'ant-input-status-error': ''}`}
+                            rows={rows ? rows : 4}
+                            placeholder={placeholder ?? ''}
+                            {...registration}
                         />
                     </div>
                 </div>
                 {error?.message && (
                     <div className={`class="ant-form-item-explain ant-form-item-explain-connected"`}>
-                        <div className='ant-form-item-explain-error'>
+                        <div className={`ant-form-item-explain-error`}>
                             {error.message}
                         </div>
                     </div>

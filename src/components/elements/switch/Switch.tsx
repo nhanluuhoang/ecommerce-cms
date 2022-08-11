@@ -6,8 +6,8 @@ type FieldProps = {
     name?: string;
     label?: string;
     classRequired?: boolean;
-    labelCol?: string;
-    inputCol?: string;
+    labelCol?: number;
+    inputCol?: number;
     registration?: Partial<UseFormRegisterReturn>;
 };
 
@@ -22,12 +22,12 @@ export const Switch = (props: FieldProps) => {
     } = props;
     return (
         <div className='ant-row ant-form-item'>
-            <div className={`ant-col ant-col-${labelCol ? labelCol : '8'} ant-form-item-label`}>
+            <div className={`ant-col ant-col-${labelCol || 8} ant-form-item-label`}>
                 {label && <label className={`${classRequired ? 'ant-form-item-required' : ''}`}>
                     {label}
                 </label>}
             </div>
-            <div className={`ant-col ant-col-${inputCol ? inputCol : '16'} ant-form-item-control`}>
+            <div className={`ant-col ant-col-${inputCol || 16} ant-form-item-control`}>
                 <label className="switch">
                     <input
                         id={name}

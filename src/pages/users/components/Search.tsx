@@ -9,6 +9,10 @@ type ISearchProps = {
     onSearch: (value: any) => void
 }
 
+const layout = {
+    labelCol: 5
+}
+
 export const Search = ({onSearch}: ISearchProps) => {
     const { register, handleSubmit, formState: { isSubmitting } } = useForm();
     
@@ -31,7 +35,7 @@ export const Search = ({onSearch}: ISearchProps) => {
                             name='email'
                             registration={register('email')}
                             label='Email'
-                            labelCol='5'
+                            labelCol={layout.labelCol}
                             placeholder='Input email'
                         />
                     </Col>
@@ -40,7 +44,7 @@ export const Search = ({onSearch}: ISearchProps) => {
                             name='phone'
                             registration={register('phone')}
                             label='Phone'
-                            labelCol='5'
+                            labelCol={layout.labelCol}
                             placeholder='Input phone'
                         />
                     </Col>
@@ -51,7 +55,7 @@ export const Search = ({onSearch}: ISearchProps) => {
                             name='full_name'
                             registration={register('full_name')}
                             label='Name'
-                            labelCol='5'
+                            labelCol={layout.labelCol}
                             placeholder='Input name'
                         />
                     </Col>

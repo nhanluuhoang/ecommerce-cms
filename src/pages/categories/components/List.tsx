@@ -3,7 +3,7 @@ import { Table, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import { Button } from '../../../components/elements';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { ICategory } from '@/pages/categories/interfaces';
+import { ICategories } from '../interfaces';
 import { deleteCategory } from '../api/categories';
 
 const columns = [
@@ -16,8 +16,8 @@ const columns = [
     },
     {
         key: '2',
-        title: 'Name',
-        dataIndex: 'name'
+        title: 'Title',
+        dataIndex: 'title'
     },
     {
         key: '3',
@@ -66,7 +66,7 @@ const columns = [
 ]
 
 type IUsersProps = {
-    data: ICategory[],
+    data: ICategories[],
 }
 
 export const List = ({ data }: IUsersProps) => {

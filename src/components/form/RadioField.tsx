@@ -8,8 +8,8 @@ type IValues = {
 
 type IProps = {
     label?: string;
-    labelCol?: string;
-    inputCol?: string;
+    labelCol?: number;
+    inputCol?: number;
     classRequired?: boolean;
     values?: IValues[];
     registration?: Partial<UseFormRegisterReturn>
@@ -18,7 +18,7 @@ type IProps = {
 export const RadioField = ({ label, values, labelCol, inputCol, classRequired, registration}: IProps) => {
     return (
         <div className='ant-row ant-form-item ant-form-item-has-success'>
-            {label && <div className={`ant-col ant-col-${labelCol ?? '6'} ant-form-item-label`}>
+            {label && <div className={`ant-col ant-col-${labelCol || 6} ant-form-item-label`}>
                 <label
                     title={label}
                     className={`${classRequired ? 'ant-form-item-required' : ''}`}
@@ -26,7 +26,7 @@ export const RadioField = ({ label, values, labelCol, inputCol, classRequired, r
                     {label}
                 </label>
             </div>}
-            <div className={`ant-col ant-col-${inputCol ?? '16'} ant-form-item-control`}>
+            <div className={`ant-col ant-col-${inputCol || 16} ant-form-item-control`}>
                 <div className='ant-form-item-control-input'>
                     <div className='ant-form-item-control-input-content'>
                         {values && values.map(({ label, value }, index) => (

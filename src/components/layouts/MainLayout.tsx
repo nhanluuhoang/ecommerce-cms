@@ -39,8 +39,8 @@ const Sidebar = () => {
             getItem('Alex', '4'),
         ]),
         getItem('Product', 'sub2', <ShopOutlined />, [
-            getItem(<Link to="/products">List</Link>, '5'),
-            getItem(<Link to="/products/create">Create</Link>, '6')]
+            getItem(<Link to="/dashboard/products">List</Link>, '5'),
+            getItem(<Link to="/dashboard/products/create">Create</Link>, '6')]
         ),
         checkAccess({ allowedRoles: [ROLES.super_admin] }) &&
         getItem('Category', 'sub3', <MenuOutlined />, [

@@ -1,19 +1,13 @@
 export interface CategoryDTO {
-    name: string;
+    title: string;
     parent_id: number | undefined;
     sort_order: number;
     is_public: boolean;
 }
 
-export interface IParams {
-    'filter[is_public]': boolean | null;
-    'filter[parent_id]': string | null;
-    'sort': string | null;
-}
-
 export interface IGetCategories {
     success: boolean;
-    data: ICategory[];
+    data: ICategories[];
     pagination: IPagination
 }
 
@@ -22,14 +16,21 @@ export interface IGetCategory {
     data: ICategory;
 }
 
-export interface ICategory {
+export interface ICategories {
     id: number;
-    name: string;
-    parent_title?: string | undefined;
-    slug: string;
+    title: string;
     sort_order: number;
     is_public: boolean;
-    children: ICategory[]
+    children?: ICategories[]
+    parent_id?: number
+}
+
+export interface ICategory {
+    id: number;
+    title: string;
+    sort_order: number;
+    is_public: boolean;
+    parent?: ICategory
     parent_id?: number
 }
 

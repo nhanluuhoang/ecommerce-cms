@@ -25,6 +25,10 @@ type formData = {
     password: string;
 }
 
+const layout = {
+    inputCol: 10
+}
+
 export const LoginForm = () => {
     const navigate = useNavigate();
     const { setUser } = useAuth()
@@ -63,7 +67,7 @@ export const LoginForm = () => {
                 <InputField
                     name='email'
                     label='Email'
-                    inputCol='10'
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('email')}
                     error={errors['email']}
@@ -72,7 +76,7 @@ export const LoginForm = () => {
                     name='password'
                     label='Password'
                     type='password'
-                    inputCol='10'
+                    inputCol={layout.inputCol}
                     classRequired={true}
                     registration={register('password')}
                     error={errors['password']}

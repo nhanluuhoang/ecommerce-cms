@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import { useNavigate } from 'react-router-dom';
-import { ICategory } from '@/pages/categories/interfaces';
+import { ICategories, ICategory } from '@/pages/categories/interfaces';
 import { createCategory, getCategories, getCategory, updateCategory } from '../api/categories';
 import { ContentLayout } from '../../../components/layouts/ContentLayout';
 
@@ -17,7 +17,7 @@ const schema = yup.object({
     parent_title: yup
     .string()
     .nullable(),
-    name: yup
+    title: yup
     .string()
     .required("Please enter category name"),
     sort_order: yup
@@ -27,22 +27,21 @@ const schema = yup.object({
     .string()
 });
 
+const layout = {
+    labelCol: 6,
+    inputCol: 12
+}
+
 type formData = {
     parent_id?: number;
     parent_title?: string;
-    name: string;
+    title: string;
     sort_order: number;
     is_public: boolean;
 }
 
-type ITreeData = {
-    title: string;
-    id: number;
-    children?: ITreeData[]
-};
-
-export const CategoryForm = ({ id } : { id: any }   ) => {
-    const [categories, setCategories] = useState<ITreeData[]>([])
+export const CategoryForm = ( { id } : { id: any } ) => {
+    const [categories, setCategories] = useState<ICategories[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const {
@@ -54,32 +53,9 @@ export const CategoryForm = ({ id } : { id: any }   ) => {
         resolver: yupResolver(schema)
     });
     
-    const transformer = (data: ICategory[]) => {
-        let list: any = []
-        
-        data.forEach((item) => {
-            if (item.children && item.children.length > 0) {
-                const child = transformer(item.children)
-                list.push({
-                    id: item.id,
-                    title: item.name,
-                    children: child
-                })
-            } else {
-                list.push({
-                    id: item.id,
-                    title: item.name,
-                })
-            }
-        })
-        
-        return list
-    }
-    
     useEffect(() => {
         getCategories().then(({data, success, pagination}) => {
-            const newData = transformer(data)
-            setCategories(newData)
+            setCategories(data)
             setIsLoading(false)
         })
         
@@ -87,8 +63,8 @@ export const CategoryForm = ({ id } : { id: any }   ) => {
             getCategory(id).then(({data, success}) => {
                 reset({
                     parent_id: data.parent_id,
-                    parent_title: data?.parent_title,
-                    name: data.name,
+                    parent_title: data?.parent?.title,
+                    title: data.title,
                     sort_order: data.sort_order,
                     is_public: data.is_public
                 })
@@ -108,12 +84,12 @@ export const CategoryForm = ({ id } : { id: any }   ) => {
     const handleUpdate = async (value: any) => {
         if (isValid) {
             const body = {
-                name: value.name,
+                title: value.title,
                 parent_id: value.parent_id,
                 sort_order: value.sort_order,
                 is_public: value.is_public === 'true' ? true : false
             }
-            
+
             if (id) {
                 await updateCategory(id, body)
                 navigate('/dashboard/categories')
@@ -125,32 +101,32 @@ export const CategoryForm = ({ id } : { id: any }   ) => {
     }
     
     return (
-        <ContentLayout isLoading={isLoading || isSubmitting} breadCrumb={['User', 'Detail']}>
+        <ContentLayout isLoading={isLoading || isSubmitting} breadCrumb={['User', id ? 'Detail' : 'Create']}>
             <form onSubmit={handleSubmit(handleUpdate)}>
                 <TreeSelectField
                     label='Category'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     treeData={categories}
                     registration={register('parent_title')}
                     onSelectValue={handleOnSelectValue}
                 />
             
                 <InputField
-                    name='name'
-                    label='Name'
-                    labelCol='6'
-                    inputCol='12'
+                    name='title'
+                    label='Title'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     classRequired={true}
-                    registration={register('name')}
-                    error={errors['name']}
+                    registration={register('title')}
+                    error={errors['title']}
                 />
             
                 <InputField
                     name='sort_order'
                     label='Sort Order'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     registration={register('sort_order')}
                     error={errors['sort_order']}
                 />
@@ -158,8 +134,8 @@ export const CategoryForm = ({ id } : { id: any }   ) => {
                 <Switch
                     label='Is Public'
                     name='is_public'
-                    labelCol='6'
-                    inputCol='12'
+                    labelCol={layout.labelCol}
+                    inputCol={layout.inputCol}
                     registration={register('is_public')}
                 />
             
